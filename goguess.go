@@ -55,7 +55,7 @@ func MoveNext(state []int, fuzzer *BruteForceSetup) []int {
 	return state
 }
 
-func StateToRawByte(state []int, fuzzer *BruteForceSetup) []byte {
+func StateToRawByte(state []int) []byte {
 	w := &bytes.Buffer{}
 	for _, v := range state {
 		w.WriteByte(byte(v))
