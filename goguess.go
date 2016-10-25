@@ -6,10 +6,29 @@ type BruteForceSetup struct {
 	Letters   []rune
 	MinLength int
 	MaxLength int
+	Count     int
 }
+
+var count = -1
 
 func NewState(fuzzer *BruteForceSetup) []int {
 	return make([]int, fuzzer.MinLength)
+}
+
+func Count(fuzzer *BruteForceSetup) int {
+	if count == -1 {
+		count = 0
+		m1 := len(fuzzer.Letters)
+		m2 := m1
+		for m := 1; m <= fuzzer.MaxLength; m++ {
+			count += m2
+			m2 *= m1
+			if m == (fuzzer.MinLength - 1) {
+				count = 0
+			}
+		}
+	}
+	return count
 }
 
 func HasNext(state []int, fuzzer *BruteForceSetup) bool {
